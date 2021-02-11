@@ -6,7 +6,7 @@ node {
         checkout scm
     }
     stage ('Build Image') {
-        app = docker.build("piyushbhaisare/hello-world")
+        app = sh ' sudo docker build -t piyushbhaisare/hello-world:12 .'
     }
     stage('Test Image'){
         app.inside {
