@@ -14,7 +14,7 @@ node {
         }
     }
     stage('Push Image'){
-        docker.withREgistry('httpa://registry.hub.docker.com','git'){
+        docker.withREgistry('httpa://registry.hub.docker.com','piyushbhaisare'){
             app.push("$env.BUILD_NUMBER}")
             app.push("latest")
         }
