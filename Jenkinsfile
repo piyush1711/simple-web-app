@@ -1,11 +1,22 @@
 node {
-    checkout scm
-
-    docker.withRegistry('https://registry.huub.docker.com', 'piyushbhaisare') {
-
-        def customImage = docker.build("hello-world/dockerwebapp")
-
-        /* Push the container to the custom Registry */
-        customImage.push()
+       def app
+    
+    stage('Clone Repository') {
+        
+        checkout scm
+    }
+    stage ('Build Image') {
+        app = docker.build("piyushbhaisare/hello-world")
+    }
+    stage('Test Image'){
+        app.inside {
+            sh 'echo "Test Passed"'
+        }
+    }
+    stage('Push Image'){
+        docker.withREgistry('httpa://registry.hub.docker.com','git'){
+            app.push("$env.BUILD_NUMBER}")
+            app.push("latest")
+        }
     }
 }
